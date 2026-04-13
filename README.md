@@ -100,11 +100,12 @@ agent = create_react_agent(model, tools=[get_weather])
 # response = agent.invoke(inputs)
 
 ### 3. Pequeña corrección en tu sección de inicio
-
+"""
 En la parte de arriba, donde dice `source .venv\Scripts\activate`, el comando correcto es:
 
 
 .venv\Scripts\activate
+"""
 ```
 
 ### Orchestrator Template
