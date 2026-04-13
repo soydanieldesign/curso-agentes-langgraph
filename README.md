@@ -1,52 +1,43 @@
-## Create a new project
+# My Agent Project - Curso Platzi LangGraph
 
+## 🚀 Setup del Proyecto
+
+### Windows CMD (Manual)
 ```sh
-# Install python3 and create a new project.
-
-python --version
-mkdir my_agent
-cd my_agent
+# Crear proyecto y entorno en D:\Langgraph\Curso Platzi\my_course_agent
 python -m venv .venv
-source .venv\Scripts\activate
-where python
-# install langgraph and langchain y langchain para Gemini y Gemma 4
 
+# Activar entorno en Windows
+.venv\Scripts\activate
+
+# Verificar que apunte al entorno virtual
+where python
+
+# Instalar dependencias para Gemini y Gemma 4
 pip install -U langgraph langchain langchain-ollama langchain-google-genai
 pip install "langgraph-cli[inmem]"
 
-# run the agent
+# Ejecutar el agente en modo dev
 langgraph dev
 ```
 
 ### Env with UV
 
 ```sh
-# Install uv
-
-curl -LsSf https://astral.sh/uv/install.sh | sh
-uv --version
-
-# deactivate the virtual environment
-deactivate
-rm -rf .venv
-
-## init
+# Instalar uv e inicializar
+curl -LsSf https://astral.sh | sh
 uv init
 uv venv
 
-# add dependencies
+# Agregar dependencias necesarias
 uv add --pre langgraph langchain-ollama langchain-google-genai
 uv add "fastapi[standard]"
 
-# add dev dependencies
-uv add "langgraph-cli[inmem]" --dev
-uv add ipykernel --dev
-uv add grandalf --dev
+# Agregar herramientas de desarrollo
+uv add "langgraph-cli[inmem]" ipykernel grandalf --dev
 
-# run the agent
+# Ejecutar
 uv run langgraph dev
-
-
 
 # install the project
 uv pip install -e .
@@ -77,13 +68,35 @@ os.environ["GOOGLE_API_KEY"] = "TU_API_KEY_AQUI"
 
 # OPCIÓN A: Gemma 4 (Local via Docker/Ollama)
 # Nota: Los modelos residen en E:\Docker\ollama_data
-llm_local = ChatOllama(model="gemma4")
+llm_local = ChatOllama(model="gemma4", temperature=0)
 
 # OPCIÓN B: Gemini 1.5 Flash (API)
 llm_cloud = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
-# Para usar en los templates:
+# Selección de modelo para los templates:
 model = llm_local # o llm_cloud
+
+## 🧠 Tool Calling Agent (Local Gemma 4)
+
+Ejemplo de cómo usar **Gemma 4** en local para ejecutar funciones específicas.
+
+<details>
+<summary>Configuración de Cliente LLM Gemma 4</summary>
+
+```python
+from langchain_ollama import ChatOllama
+from langgraph.prebuilt import create_react_agent
+
+def get_weather(city: str) -> str:
+    """Get weather for a given city."""
+    return f"It's always sunny in {city}!"
+
+model = ChatOllama(model="gemma4", temperature=0)
+agent = create_react_agent(model, tools=[get_weather])
+
+# Ejecución
+# inputs = {"messages": [("user", "what is the weather in sf")]}
+# response = agent.invoke(inputs)
 
 ### 3. Pequeña corrección en tu sección de inicio
 
