@@ -52,7 +52,7 @@ include = ["*"]
 - https://mermaidviewer.com/editor
 
 ## 🧠 Model Configuration (Local & Cloud)
-
+```sh
 Para el curso, se alternan entre **Gemma 4** (Local en disco E:) y **Gemini** (API) para mayor precisión.
 
 <details>
@@ -75,9 +75,10 @@ llm_cloud = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
 # Selección de modelo para los templates:
 model = llm_local # o llm_cloud
+```
 
 ## 🧠 Tool Calling Agent (Local Gemma 4)
-
+```sh
 Ejemplo de cómo usar **Gemma 4** en local para ejecutar funciones específicas.
 
 <details>
