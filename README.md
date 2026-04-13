@@ -3,11 +3,11 @@
 ```sh
 # Install python3 and create a new project.
 
-python3 --version
+python --version
 mkdir my_agent
 cd my_agent
-python3 -m venv .venv
-source .venv/bin/activate
+python -m venv .venv
+source .venv\Scripts\activate
 which python
 # install langgraph and langchain
 
