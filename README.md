@@ -192,17 +192,16 @@ agent = builder.compile()
 </details>
 
 ### Fast API Checkpoint
+Este template permite persistir el estado de los agentes utilizando PostgreSQL en un entorno FastAPI.
 
 <details>
-<summary>Template</summary>
+<summary>Ver Código</summary>
 
 ```py
 import os
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
-from fastapi import Depends
+from fastapi import FastAPI, Depends
 from typing import Annotated
-
 from langgraph.checkpoint.postgres import PostgresSaver
 
 DB_URI = os.getenv("DB_URI")
@@ -213,6 +212,7 @@ _checkpointer: PostgresSaver | None = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global _checkpointer
+    # Se conecta a la base de datos definida en DB_URI
     with PostgresSaver.from_conn_string(DB_URI) as checkpointer:
         _checkpointer = checkpointer
         _checkpointer.setup()
@@ -224,5 +224,6 @@ def get_checkpointer() -> PostgresSaver:
     return _checkpointer
 
 CheckpointerDep = Annotated[PostgresSaver, Depends(get_checkpointer)]
+
 ```
 </details>
