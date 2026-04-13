@@ -9,9 +9,9 @@ cd my_agent
 python -m venv .venv
 source .venv\Scripts\activate
 where python
-# install langgraph and langchain
+# install langgraph and langchain y langchain para Gemini y Gemma 4
 
-pip install --pre langgraph langchain langchain-openai
+pip install -U langgraph langchain langchain-ollama langchain-google-genai
 pip install "langgraph-cli[inmem]"
 
 # run the agent
