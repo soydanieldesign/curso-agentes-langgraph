@@ -8,7 +8,7 @@ mkdir my_agent
 cd my_agent
 python -m venv .venv
 source .venv\Scripts\activate
-which python
+where python
 # install langgraph and langchain
 
 pip install --pre langgraph langchain langchain-openai
