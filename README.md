@@ -104,6 +104,7 @@ En la parte de arriba, donde dice `source .venv\Scripts\activate`, el comando co
 
 
 .venv\Scripts\activate
+
 ```sh
 ### Orchestrator Template
 
