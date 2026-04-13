@@ -35,8 +35,7 @@ uv init
 uv venv
 
 # add dependencies
-uv add --pre langgraph langchain langchain-openai
-uv add --pre langchain-anthropic
+uv add --pre langgraph langchain-ollama langchain-google-genai
 uv add "fastapi[standard]"
 
 # add dev dependencies
@@ -61,6 +60,37 @@ include = ["*"]
 
 - https://mermaidviewer.com/editor
 
+## 🧠 Model Configuration (Local & Cloud)
+
+Para el curso, se alternan entre **Gemma 4** (Local en disco E:) y **Gemini** (API) para mayor precisión.
+
+<details>
+<summary>Configuración de Clientes LLM</summary>
+
+```python
+import os
+from langchain_ollama import ChatOllama
+from langchain_google_genai import ChatGoogleGenerativeAI
+
+# Configuración API Cloud
+os.environ["GOOGLE_API_KEY"] = "TU_API_KEY_AQUI"
+
+# OPCIÓN A: Gemma 4 (Local via Docker/Ollama)
+# Nota: Los modelos residen en E:\Docker\ollama_data
+llm_local = ChatOllama(model="gemma4")
+
+# OPCIÓN B: Gemini 1.5 Flash (API)
+llm_cloud = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
+
+# Para usar en los templates:
+model = llm_local # o llm_cloud
+
+### 3. Pequeña corrección en tu sección de inicio
+
+En la parte de arriba, donde dice `source .venv\Scripts\activate`, el comando correcto es:
+
+```sh
+.venv\Scripts\activate
 
 ### Orchestrator Template
 
